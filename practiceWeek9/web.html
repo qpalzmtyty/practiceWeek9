@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            margin-bottom: 10px;
+        }
+        #progressBar {
+            width: 0;
+            height: 30px;
+            background-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+<h1>JavaScript Practice</h1>
+
+<section>
+    <h2>1. Average Marks and Grades</h2>
+    <button id="calculateGrades">Calculate Grades</button>
+    <div id="gradesOutput"></div>
+</section>
+
+<section>
+    <h2>2. Keydown Event Listener</h2>
+    <input type="text" id="textInput" placeholder="Press Enter to calculate grades...">
+</section>
+
+<section>
+    <h2>3. Double Click Event</h2>
+    <div id="doubleClickElement">Double click me!</div>
+</section>
+
+<section>
+    <h2>4. Progress Bar</h2>
+    <div class="progress-container">
+        <div id="progressBar"></div>
+    </div>
+    <button id="completeTask">Complete Task</button>
+</section>
+
+<section>
+    <h2>5. FizzBuzz Program</h2>
+    <button id="fizzBuzzButton">Run FizzBuzz</button>
+    <div id="fizzBuzzOutput"></div>
+</section>
+
+<script>
+    const students = {
+        John: [85, 90, 78],
+        Jane: [92, 88, 95],
+        Mark: [70, 75, 80]
+    };
+
+    function displayGrades() {
+        const gradesOutput = document.getElementById('gradesOutput');
+        gradesOutput.innerHTML = ''; // Clear previous output
+
+        for (const student in students) {
+            const result = calculateAverageAndGrade(students[student]);
+            gradesOutput.innerHTML += `${student}: Average = ${result.average.toFixed(2)}, Grade = ${result.grade}<br>`;
+        }
+    }
+
+    document.getElementById('calculateGrades').addEventListener('click', displayGrades);
+
+    function calculateAverageAndGrade(marks) {
+        const total = marks.reduce((sum, mark) => sum + mark, 0);
+        const average = total / marks.length;
+        let grade;
+
+        if (average >= 90) {
+            grade = 'A';
+        } else if (average >= 80) {
+            grade = 'B';
+        } else if (average >= 70) {
+            grade = 'C';
+        } else if (average >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+
+        return { average, grade };
+    }
+
+    const input = document.getElementById('textInput');
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            displayGrades();
+        }
+    });
+
+    const element = document.getElementById('doubleClickElement');
+
+    element.addEventListener('dblclick', function() {
+        alert('Element double-clicked!');
+    });
+
+    const progressBar = document.getElementById('progressBar');
+    let width = 0;
+
+    document.getElementById('completeTask').addEventListener('click', function() {
+        if (width < 100) {
+            width += 10;
+            progressBar.style.width = width + '%';
+        }
+    });
+
+    document.getElementById('fizzBuzzButton').addEventListener('click', function() {
+        const fizzBuzzOutput = document.getElementById('fizzBuzzOutput');
+        fizzBuzzOutput.innerHTML = '';
+
+        for (let i = 1; i <= 100; i++) {
+            let output = '';
+
+            if (i % 3 === 0) {
+                output += 'Fizz';
+            }
+            if (i % 5 === 0) {
+                output += 'Buzz';
+            }
+
+            fizzBuzzOutput.innerHTML += output || i + '<br>';
+        }
+    });
+</script>
+</body>
+</html>
